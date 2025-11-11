@@ -1,5 +1,6 @@
 package group.triade.catalogo.config;
 
+import com.auth0.jwt.algorithms.Algorithm;
 import group.triade.catalogo.entities.Admin;
 import group.triade.catalogo.repositories.AdminRepository;
 import group.triade.catalogo.services.AutenticacaoService;
@@ -10,10 +11,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-public class SecurityFilter {
+@Component
+public class SecurityFilter extends OncePerRequestFilter {
 
     @Autowired
     private AutenticacaoService autenticacaoService;
@@ -21,6 +25,7 @@ public class SecurityFilter {
     @Autowired
     private AdminRepository adminRepository;
 
+    private Algorithm jwtAlg = Algorithm.HMAC256("my-secret");
 
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,

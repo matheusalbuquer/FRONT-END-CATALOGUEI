@@ -24,10 +24,12 @@ public class AdminService {
     @Transactional
     public AdminResponseDTO criar (AdminRequestDTO dto){
 
+        var senha = passwordEncoder.encode(dto.senha());
+
         Admin admin = new Admin();
         admin.setNome(dto.nome());
         admin.setEmail(dto.email());
-        admin.setSenha(dto.senha());
+        admin.setSenha(senha);
 
         Admin salvo = adminRepository.save(admin);
 
