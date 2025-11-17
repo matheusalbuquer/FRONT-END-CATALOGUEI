@@ -23,47 +23,59 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-    @Autowired
-    private SecurityFilter securityFilter;
+  @Autowired
+  private SecurityFilter securityFilter;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .cors(cors -> {}) // mantém CORS habilitado
-                .csrf(csrf -> csrf.disable())
-                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        // ---- Endpoints públicos ----
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // CORS preflight
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+      .cors(cors -> {})
+      .csrf(csrf -> csrf.disable())
+      .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
+      .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+      .authorizeHttpRequests(auth -> auth
 
-                        // ---- Endpoints protegidos ----
-                        .requestMatchers("/lojista/**").permitAll()
-                        .requestMatchers("/produto/**").authenticated()
+        // ---------------------------
+        // ENDPOINTS PÚBLICOS
+        // ---------------------------
 
-                        // ---- Qualquer outro endpoint (opcional) ----
-                        .anyRequest().denyAll()
-                )
-                // ---- Filtro JWT antes da autenticação padrão ----
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-        return http.build();
-    }
+        // rotas públicas do lojista (ajuste conforme seu projeto)
+        .requestMatchers(HttpMethod.POST, "/lojista").permitAll()
+        .requestMatchers("/lojista/public/**").permitAll()
 
-    @Bean
-    public DaoAuthenticationProvider authProvider(UserDetailsService uds, PasswordEncoder encoder) {
-        var p = new DaoAuthenticationProvider();
-        p.setUserDetailsService(uds); // seu AutenticacaoServiceImpl implementa UserDetailsService
-        p.setPasswordEncoder(encoder);
-        return p;
-    }
+        // rota pública para listar produtos por nomeLoja
+        .requestMatchers("/produto/lojas/**").permitAll()
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration cfg) throws Exception {
-        return cfg.getAuthenticationManager();
+        // ---------------------------
+        // ENDPOINTS PROTEGIDOS
+        // ---------------------------
+        // LIBERA AS IMAGENS
+        .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll()
+
+        .requestMatchers("/produto/**").authenticated()
+        .requestMatchers("/produto/meus").authenticated()
+
+        // qualquer outra rota → bloqueada
+        .anyRequest().denyAll()
+      )
+      .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+
+    return http.build();
+  }
+
+  @Bean
+  public DaoAuthenticationProvider authProvider(UserDetailsService uds, PasswordEncoder encoder) {
+    var p = new DaoAuthenticationProvider();
+    p.setUserDetailsService(uds);
+    p.setPasswordEncoder(encoder);
+    return p;
+  }
+
+  @Bean
+  public AuthenticationManager authenticationManager(AuthenticationConfiguration cfg) throws Exception {
+    return cfg.getAuthenticationManager();
+  }
 }
-
-
-}
-

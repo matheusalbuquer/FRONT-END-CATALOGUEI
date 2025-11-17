@@ -35,21 +35,30 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody AuthRequestDTO dto) {
-        Lojista lojista = adminRepository.findByEmail(dto.email());
-        if(lojista == null || passwordEncoder.matches(dto.email(),lojista.getSenha()) ){
-            throw  new BadCredentialsException("Credenciais inválidas");
-        }
+      // 1) Busca lojista pelo email
+      Lojista lojista = adminRepository.findByEmail(dto.email());
+      if (lojista == null) {
+        throw new BadCredentialsException("Credenciais inválidas");
+      }
 
-        String token = autenticacaoService.gerarTokenJWT(lojista);
+      // 2) Compara a SENHA enviada com a SENHA criptografada
+      boolean senhaCorreta = passwordEncoder.matches(dto.senha(), lojista.getPassword());
+      if (!senhaCorreta) {
+        throw new BadCredentialsException("Credenciais inválidas");
+      }
 
-        AuthResponseDTO resp = new AuthResponseDTO(
-                token,
-                lojista.getId(),
-                lojista.getNome(),
-                lojista.getEmail(),
-                LocalDateTime.now().plusHours(8).toString()
-        );
+      // 3) Gera token
+      String token = autenticacaoService.gerarTokenJWT(lojista);
 
-        return ResponseEntity.ok(resp);
+      AuthResponseDTO resp = new AuthResponseDTO(
+        token,
+        lojista.getId(),
+        lojista.getNome(),
+        lojista.getEmail(),
+        LocalDateTime.now().plusHours(8).toString()
+      );
+
+      return ResponseEntity.ok(resp);
     }
+
 }

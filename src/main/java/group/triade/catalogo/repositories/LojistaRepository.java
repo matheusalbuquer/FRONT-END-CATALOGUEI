@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LojistaRepository extends JpaRepository<Lojista, Long> {
 
-
+    Lojista findByNome (String nome);
      Lojista findByEmail (String email);
 }

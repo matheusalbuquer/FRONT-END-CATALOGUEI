@@ -17,6 +17,7 @@ public class Lojista implements UserDetails {
 
     private String nome;
     private String email;
+
     private String senha;
 
     @Override
