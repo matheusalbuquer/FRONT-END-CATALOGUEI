@@ -49,6 +49,16 @@ public class ProdutoController {
   }
 
 
+  @PutMapping("/editar/{id}")
+  public ResponseEntity<ProdutoResponseDTO> editar(
+    @PathVariable Long id,
+    @RequestBody ProdutoRequestDTO dto) {
+
+    ProdutoResponseDTO resp = produtoService.editar(id, dto);
+    return ResponseEntity.ok(resp);
+  }
+
+
   @GetMapping("/meus")
   public ResponseEntity<Page<ProdutoResponseDTO>> obterProdutosDoLojista(
     @RequestParam(defaultValue = "0") int page,

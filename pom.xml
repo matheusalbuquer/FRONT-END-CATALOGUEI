@@ -12,7 +12,13 @@
 		<relativePath/>
 	</parent>
 
-	<groupId>group</groupId>
+  <dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <optional>true</optional>
+  </dependency>
+
+  <groupId>group</groupId>
 	<artifactId>triade.catalogo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>triade.catalogo</name>

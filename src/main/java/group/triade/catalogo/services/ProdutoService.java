@@ -1,5 +1,7 @@
 package group.triade.catalogo.services;
 
+import group.triade.catalogo.dtos.LojistaRequestDTO;
+import group.triade.catalogo.dtos.LojistaResponseDTO;
 import group.triade.catalogo.dtos.produto.ProdutoRequestDTO;
 import group.triade.catalogo.dtos.produto.ProdutoResponseDTO;
 import group.triade.catalogo.entities.Lojista;
@@ -62,6 +64,54 @@ public class ProdutoService {
       salvo.getImgUrl()
     );
   }
+
+  @Transactional
+  public ProdutoResponseDTO editar(Long id, ProdutoRequestDTO dto) {
+
+    // 1) Pega o lojista logado
+    String login = SecurityContextHolder.getContext()
+      .getAuthentication()
+      .getName();
+
+    Lojista lojista = lojistaRepository.findByEmail(login);
+    if (lojista == null) {
+      throw new IllegalStateException("Usuário não encontrado");
+    }
+
+    // 2) Produto deve existir
+    Produto produto = produtoRepository.findById(id)
+      .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
+
+    // 3) Verifica se o produto pertence ao lojista logado
+    if (!produto.getLojista().getId().equals(lojista.getId())) {
+      throw new SecurityException("Você não tem permissão para editar este produto");
+    }
+
+    // 4) Atualiza dados básicos
+    produto.setNome(dto.nome());
+    produto.setDescricao(dto.descricao());
+    produto.setPreco(dto.preco());
+
+    // 5) Atualiza imagem, se veio nova
+    if (dto.imagem() != null && !dto.imagem().isEmpty()) {
+      // (Opcional) aqui você poderia apagar a imagem antiga do disco, se quiser
+      String url = salvarImagemLocal(dto.imagem(), "produtos");
+      produto.setImgUrl(url);
+    }
+
+    Produto salvo = produtoRepository.save(produto);
+
+    // 6) Retorna DTO
+    return new ProdutoResponseDTO(
+      salvo.getId(),
+      salvo.getNome(),
+      salvo.getPreco(),
+      salvo.getDescricao(),
+      salvo.getImgUrl()
+    );
+  }
+
+
 
   @Transactional
   public Page<ProdutoResponseDTO> obterProdutosDoLojista(Pageable pageable) {

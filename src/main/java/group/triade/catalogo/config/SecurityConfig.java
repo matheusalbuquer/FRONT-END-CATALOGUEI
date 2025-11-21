@@ -57,6 +57,7 @@ public class SecurityConfig {
 
         .requestMatchers("/produto/**").authenticated()
         .requestMatchers("/produto/meus").authenticated()
+        .requestMatchers("/mp/test").authenticated()
 
         // qualquer outra rota → bloqueada
         .anyRequest().denyAll()
