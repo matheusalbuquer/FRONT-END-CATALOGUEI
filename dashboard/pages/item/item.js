@@ -29,7 +29,7 @@ function resolveImgSrc(p) {
     p.imagemPath ||
     "";
 
-  if (!raw) return "./img/sem-imagem.png";
+  if (!raw) return "/CATALOGUEI MATHEUS/img/img frame.png";
 
   const str = String(raw).trim();
 
@@ -81,7 +81,7 @@ async function carregarMeusProdutos(page = 0) {
     const itens = data.content || [];
 
     if (itens.length === 0) {
-      container.innerHTML = "<p>Ainda não existem produtos cadastrados.</p>";
+      container.innerHTML = "<p>Você ainda não cadastrou produtos.</p>";
       return;
     }
 
@@ -89,28 +89,10 @@ async function carregarMeusProdutos(page = 0) {
       .map(
         (p) => `
         <div class="produto">
-          <img src="${resolveImgSrc(p)}" alt="${p.nome}"/>
-          <div class="desc-icon">
-              <div class="desc">
-                  <h3>${p.nome}</h3>
-                  <p>${p.descricao || ""}</p>
-                  <strong>R$ ${Number(p.preco).toFixed(2)}</strong>
-
-              </div>
-              <div class="icons">
-
-                               <button id="editar" class="icone-cate">
-                               <img src="/img/editar.png" alt="">
-                               </button>
-
-                               <button id="deletar" class="icone-cate">
-                               <img src="/img/excluir.png" alt="">
-                               </button>
-
-                               <!-- Fim da div que separa o nome do produto com o resto das infos -->
-
-              </div>
-          </div>
+          <img src="${resolveImgSrc(p)}" alt="${p.nome}" />
+          <h3>${p.nome}</h3>
+          <p>${p.descricao || ""}</p>
+          <strong>R$ ${Number(p.preco).toFixed(2)}</strong>
         </div>
       `
       )

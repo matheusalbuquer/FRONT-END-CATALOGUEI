@@ -1,32 +1,84 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
-@import url('./header.css');
 
-:root {
-    --color-bg-1: #fff;
-    --color-bg-2: #1e1e1e;
-    --color-main: #FEC919;
-}
-
-* {
+*{
     margin: 0;
-    overflow-x: hidden;
+    padding: 0;
+    box-sizing: border-box;
     font-family: 'Karla', sans-serif;
 }
 
-body {
-    background-color: var(--color-bg-1);
+html, body{
+    height: 100%;
+}
 
+body {
+    background-image: url(/img/bg-img.png);;
+    background-size: contain;
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
+.voltar-login img{
+    width: 45px;
+    cursor: pointer;
+    margin: 15px 0 0 15px;
+    position: fixed;
+}
+
+.login-conta{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.topo-login{
+    font-size: 25px;
+    font-weight: bold;
+    width: 320px;
+    text-align: center;
+}
+
+.entrar-conta{
+        margin-top: 250px;
 }
 
 form{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
-from input, form label, form button{margin-top:1rem;}
 
-form button{
-cursor:pointer;
-width: 200px;
+input[type="email"], input[type="password"] {
+    width: 570px;
+    padding: 20px;
+    font-size: 19px;
+    border-radius: 10px;
+    border: 0;
+    outline:  0;
+}
+
+form a{
+    text-align: right;
+    color: black;
+    font-weight: 700;
+}
+
+.bt-entrar{
+    width: 570px;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 10px;
+    border: 0;
+    background-color: #1E1E1E;
+    color: #FEC919;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.bt-entrar:hover{
+    background-color: #363636;
 }
