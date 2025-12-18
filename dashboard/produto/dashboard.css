@@ -1,21 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
-@import url('/CATALOGUEI MATHEUS/dashboard/pages/promoções/promo/promo.css');
-@import url('/CATALOGUEI MATHEUS/dashboard/pages/promoções/promocoes.css');
-@import url('/CATALOGUEI MATHEUS/dashboard/pages/item/item.css');
-@import url('/CATALOGUEI MATHEUS/dashboard/pages/categorias/cate/cate.css');
-@import url('/CATALOGUEI MATHEUS/dashboard/pages/categorias/categorias.css');
+@import url('../pages/cad-produto/cad-produto.css');
+@import url('../pages/cad-categoria/cad-categoria.css');
+@import url('../pages/categorias/categorias.css');
 
 :root {
     --color-bg-1: #fff;
     --color-bg-2: #1e1e1e;
-    --color-bg-3:#d9d9d9;
+    --color-bg-3: #d9d9d9;
     --color-main: #FEC919;
-    --color-orange:#e45823;
+    --color-orange: #e45823;
 }
 
 * {
     margin: 0;
-overflow-x: hidden;
+    overflow-x: hidden;
     font-family: 'Karla', sans-serif;
 }
 
@@ -139,7 +137,6 @@ header button:hover {
     display: none;
 }
 
-
 .sidebar img {
     margin: 9px;
 }
@@ -192,11 +189,12 @@ header button:hover {
     font-weight: 600;
 }
 
-#mensagem{
-    color:var(--color-bg-2);
-    font-size:10px;
-    font-wheight:500;
+#mensagem {
+    color: var(--color-bg-2);
+    font-size: 10px;
+    font-weight: 500;
 }
+
 .products {
     padding: 5rem;
     display: grid;
@@ -207,60 +205,73 @@ header button:hover {
 
 }
 
-.produto{
-display:flex;flex-direction:column;
+.produto {
+    display: flex;
+    flex-direction: column;
     border-radius: 5px;
     width: 245px;
     height: 317px;
     background-color: var(--color-bg-1);
     box-shadow: 0px 4px 4px #d9d9d9;
     margin-left: 1rem;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.produto .desc-icon{
-display:flex;
-flex-drection:row;
+.produto .desc-icon {
+    display: flex;
+    flex-direction: row;
 }
 
-.produto .desc{
-font-size:12px;
-padding:10px 0px 0px 10px;
+.produto .desc-icon i:hover {
+    background: var(--color-orange);
 }
 
-.produto .icons{
-display:flex;
-position:relative;
-flex-direction:row;
-left:3rem;
+.produto .desc {
+    font-size: 12px;
+    padding: 10px 0px 0px 10px;
 }
 
-.produto .icons img{
-width:20px;
-height:20px;
+.produto .icons {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    left: 3rem;
 }
 
-.produto p{
-    padding-top:10px;
-    padding-bottom:10px ;
-    max-width:100px;
-    white-space: nowrap;      /* Prevents the text from wrapping to a new line */
-    overflow: hidden;         /* Hides the overflowing text */
-    text-overflow: ellipsis;  /* Displays an ellipsis (...) at the end */
+.produto .icons i {
+    width: 20px;
+    height: 20px;
+}
+
+.produto p {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    max-width: 100px;
+    white-space: nowrap;
+    /* Prevents the text from wrapping to a new line */
+    overflow: hidden;
+    /* Hides the overflowing text */
+    text-overflow: ellipsis;
+    /* Displays an ellipsis (...) at the end */
 
 }
 
-.produto strong{
-color:var(--color-orange);
+.produto strong {
+    color: var(--color-orange);
 
 }
 
-.produto img{
-    width:245px;
-    height:229px;
- }
+.produto img {
+    width: 245px;
+    height: 229px;
+}
 
 .product-card i img {
     width: 20px;
     height: 20px;
+}
+
+.icons button {
+    background: none;
+    border: none;
 }

@@ -4,69 +4,52 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catálogo da Loja</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link rel="stylesheet" href="cliente.css">
 
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        padding: 20px;
-      }
-
-      h1 {
-        margin-bottom: 20px;
-      }
-
-      /* GRID bonitinha */
-      #produtos {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 20px;
-      }
-
-      /* CARD */
-      .card {
-        background: #fff;
-        border-radius: 10px;
-        padding: 15px;
-        border: 1px solid #e0e0e0;
-        box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s;
-      }
-
-      .card:hover {
-        transform: scale(1.03);
-      }
-
-      .card img {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-        border-radius: 8px;
-        margin-bottom: 10px;
-      }
-
-      .card strong {
-        font-size: 16px;
-        display: block;
-        margin-bottom: 5px;
-      }
-
-      .price {
-        color: #008000;
-        font-weight: bold;
-        margin-bottom: 5px;
-      }
-
-      .desc {
-        font-size: 14px;
-        color: #555;
-      }
-    </style>
   </head>
   <body>
-    <h1>Catálogo da Loja</h1>
 
-    <div id="produtos"></div>
+  <header>
+      <nav id="navbar">
 
-    <script src="cliente.js"></script>
+
+          <a href="#">
+              <i>
+                  <img src="/img/logo-cataloguei 1.png" alt="">
+              </i>
+          </a>
+          <div id="search_bar">
+              <input type="text" placeholder="Pesquisar produtos" name="" id="">
+              <button type="submit"><i class="fa-solid fa-search"></i></button>
+          </div>
+          <div id="shopping-menu">
+              <ul>
+                  <li class="active"><a href="">asas</a></li>
+                  <li><a href="">asas</a></li>
+              </ul>
+          </div>
+          <button class="shopping_menu_btn" onclick="shoppingMenu()">
+              <i class="chart"><img src="/img/Bag.png" alt=""></i>
+          </button>
+
+
+
+      </nav>
+  </header>
+  <img class="bg" src="/img/bg-img.png"/>
+
+  <div class="content"></div>
+
+   <div class="p-bg">
+       <div id="produtos"></div>
+   </div>
+
+
+
+
   </body>
+  <script src="cliente.js"></script>
 </html>
