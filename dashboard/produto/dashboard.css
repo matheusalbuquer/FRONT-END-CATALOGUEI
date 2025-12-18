@@ -128,7 +128,6 @@ header button:hover {
     align-items: center;
 }
 
-
 .sidebar:hover .n-list {
     display: flex;
 }
@@ -202,7 +201,6 @@ header button:hover {
     gap: 24px;
 
 
-
 }
 
 .produto {
@@ -222,10 +220,6 @@ header button:hover {
     flex-direction: row;
 }
 
-.produto .desc-icon i:hover {
-    background: var(--color-orange);
-}
-
 .produto .desc {
     font-size: 12px;
     padding: 10px 0px 0px 10px;
@@ -238,9 +232,14 @@ header button:hover {
     left: 3rem;
 }
 
-.produto .icons i {
+.produto .icons #i {
     width: 20px;
     height: 20px;
+    transition: .2s ease;
+}
+
+.produto .desc-icon #i:hover {
+    transform: scale(1.2);
 }
 
 .produto p {
@@ -256,6 +255,11 @@ header button:hover {
 
 }
 
+.produto p:hover {
+    overflow: none;
+    text-overflow: none;
+}
+
 .produto strong {
     color: var(--color-orange);
 
@@ -264,11 +268,6 @@ header button:hover {
 .produto img {
     width: 245px;
     height: 229px;
-}
-
-.product-card i img {
-    width: 20px;
-    height: 20px;
 }
 
 .icons button {

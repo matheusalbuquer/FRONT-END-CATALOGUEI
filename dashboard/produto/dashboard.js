@@ -100,12 +100,11 @@ async function carregarMeusProdutos(page = 0) {
               <div class="icons">
 
                                <button id="editar" class="icone-cate">
-                               <i class="fa-solid fa-pen"></i>
+                               <img id="i" src="/img/editar.png" alt="">
                                </button>
 
                                <button id="deletar" class="icone-cate">
-                               <i class="fa-solid fa-pen"></i>
-                               
+                               <img id="i" src="/img/excluir.png" alt="">
                                </button>
 
                                <!-- Fim da div que separa o nome do produto com o resto das infos -->
