@@ -51,7 +51,7 @@ form.addEventListener("submit", async (e) => {
     alert("Login realizado com sucesso!");
 
     // Se quiser redirecionar:
-    window.location.href = "dashboard/produto/dashboard.html";
+    window.location.href = "dashboard/dashboard.html";
   } catch (err) {
     console.error("Erro de conexão:", err);
     alert("Erro ao conectar com o servidor.");

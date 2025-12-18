@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cadastro de Produto</title>
+    <link rel="stylesheet" href="/editar-produto/editar-produto.css" />
+  </head>
+
+  <body>
+    <header>
+      <h2>Editar Produtos</h2>
+      <a href="/dashboard/produto/dashboard.html"><button>Cancelar</button></a>
+    </header>
+    <div class="sidebar">
+      <a class="logo" href="#">
+        <i>
+          <img src="/img/logo-cataloguei 1.png" alt="" />
+        </i>
+        Painel
+      </a>
+      <ul class="n-list">
+        <a class="active" href="/dashboard/dashboard.html">
+          <i> <img src="/img/icons/caixa-de-entrega 1.png" alt="" /> </i
+          >Produtos
+        </a>
+
+        <a href="../categorias/categorias.html" id="categorias">
+          <i>
+            <img src="/img/icons/Tags.png" alt="" />
+          </i>
+          Categorias
+        </a>
+      </ul>
+
+      <ul class="h-list">
+        <a href="">
+          <i>
+            <img src="/img/icons/caixa-de-entrega 1.png" alt="" />
+          </i>
+        </a>
+
+        <a href="">
+          <i>
+            <img src="/img/icons/Tags.png" alt="" />
+          </i>
+        </a>
+      </ul>
+    </div>
+    <img class="bg" src="/img/bg-img.png" />
+    <div class="c-bg">
+      <div class="content">
+        <form id="form-produto" method="POST">
+          <div>
+            <input type="file" id="imagem" accept="image/*" required />
+          </div>
+
+          <div>
+            <input placeholder="Nome:" id="nome" type="text" required />
+          </div>
+          <div class="list">
+            <input
+              placeholder="Preço:"
+              type="number"
+              id="preco"
+              step="0.01"
+              required
+            />
+
+            <input placeholder="Categoria" id="categoria" type="text" />
+          </div>
+
+          <div>
+            <textarea
+              placeholder="Descrição:"
+              id="descricao"
+              rows="3"
+            ></textarea>
+          </div>
+          <button type="submit">Adicionar Item</button>
+        </form>
+      </div>
+    </div>
+    <!--
+<form id="form-produto">
+    <div>
+        <label for="nome">Nome do produto</label><br />
+        <input type="text" id="nome" required />
+    </div>
+
+    <div>
+        <label for="descricao">Descrição</label><br />
+        <textarea id="descricao" rows="3"></textarea>
+    </div>
+
+    <div>
+        <label for="imagem">Imagem</label><br />
+        <input type="file" id="imagem" accept="image/*" required />
+    </div>
+
+    <div>
+        <label for="preco">Preço</label><br />
+        <input type="number" id="preco" step="0.01" required />
+    </div>
+
+    <button type="submit">Cadastrar</button>
+</form>
+-->
+
+    <script src="back end/editar-produto.js"></script>
+  </body>
+</html>

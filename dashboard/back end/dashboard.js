@@ -88,7 +88,7 @@ async function carregarMeusProdutos(page = 0) {
     container.innerHTML = itens
       .map(
         (p) => `
-        <div class="produto">
+        <div class="produto" data-id="${p.id}">
           <img src="${resolveImgSrc(p)}" alt="${p.nome}"/>
           <div class="desc-icon">
               <div class="desc">
@@ -97,20 +97,19 @@ async function carregarMeusProdutos(page = 0) {
                   <strong>R$ ${Number(p.preco).toFixed(2)}</strong>
 
               </div>
-              <div class="icons">
 
-                               <button id="editar" class="icone-cate">
-                               <i class="fa-solid fa-pen"></i>
-                               </button>
+           <div class="icons">
 
-                               <button id="deletar" class="icone-cate">
-                               <i class="fa-solid fa-pen"></i>
-                               
-                               </button>
+            <button type="button" class="icone-cate btn-editar">
+              <img src="../img/editar.png" class="icon-img" />
+            </button>
 
-                               <!-- Fim da div que separa o nome do produto com o resto das infos -->
+            <button type="button" class="icone-cate btn-deletar">
+              <img src="../img/excluir.png" class="icon-img" />
+            </button>
 
-              </div>
+          </div>
+
           </div>
         </div>
       `
@@ -121,6 +120,17 @@ async function carregarMeusProdutos(page = 0) {
     container.innerHTML = "<p>Erro ao carregar produtos.</p>";
   }
 }
+
+container.addEventListener("click", (e) => {
+  const btnDel = e.target.closest(".btn-deletar");
+  if (!btnDel) return;
+
+  const card = btnDel.closest(".produto");
+  const id = card?.dataset?.id;
+
+  console.log("ID para excluir:", id); // 👈 teste
+  deletarProduto(id);
+});
 
 // chama assim que a página abrir
 carregarMeusProdutos();
