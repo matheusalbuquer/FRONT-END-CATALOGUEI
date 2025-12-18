@@ -101,11 +101,13 @@ async function carregarMeusProdutos(page = 0) {
            <div class="icons">
 
             <button type="button" class="icone-cate btn-editar">
-              <img src="../img/editar.png" class="icon-img" />
+            <a href="/editar-produto/editar-produto.html"><img src="../img/editar.png" class="icon-img" /></a>
+              
             </button>
                             
             <button id="deletar" class="icone-cate">
-            <img id="i" src="/img/excluir.png" alt="">
+            <a href=""> <img id="i" src="/img/excluir.png" alt=""></a>
+           
             </button>
 
           </div>
