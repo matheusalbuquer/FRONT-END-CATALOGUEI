@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('../pages/cad-produto/cad-produto.css');
+@import url('../pages/cad-categoria/cad-categoria.css');
+@import url('../pages/categorias/categorias.css');
+
+:root {
+    --color-bg-1: #fff;
+    --color-bg-2: #1e1e1e;
+    --color-bg-3: #d9d9d9;
+    --color-main: #FEC919;
+    --color-orange: #e45823;
+}
+
+* {
+    margin: 0;
+    overflow-x: hidden;
+    font-family: 'Karla', sans-serif;
+}
+
+body {
+    background-color: var(--color-bg-3);
+
+}
+
+body .bg {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 289px;
+}
+
+header {
+    display: flex;
+    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 250px;
+    height: 100px;
+    z-index: 2;
+    position: relative;
+
+}
+
+header h2 {
+    font-size: 35px;
+    font-weight: 700;
+}
+
+header a {
+    text-decoration: none;
+}
+
+header button {
+    padding: 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-bg-1);
+    background: var(--color-bg-2);
+    transition: ease-in-out 0.3s;
+    margin-right: 150px;
+}
+
+header button:hover {
+    background-color: #474747;
+}
+
+.sidebar {
+    font-size: 25px;
+    font-weight: 500;
+    height: 100vh;
+    width: 165px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: var(--color-bg-2);
+    border-radius: 0px 20px 20px 0px;
+    overflow-x: hidden;
+    padding-top: 20px;
+    transition: ease-in-out .3s;
+}
+
+.sidebar:hover {
+    width: 250px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar .logo:hover {
+    background: none;
+}
+
+.sidebar .logo img {
+    width: 2rem;
+    height: 2rem;
+
+}
+
+.sidebar img {
+    width: 20px;
+    height: 20px;
+
+
+}
+
+.sidebar ul {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    right: 2.5rem;
+    width: 100%;
+}
+
+.sidebar .n-list {
+    display: none;
+    font-size: 20px;
+}
+
+.n-list a {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar:hover .n-list {
+    display: flex;
+}
+
+.sidebar:hover .h-list {
+    display: none;
+}
+
+.sidebar img {
+    margin: 9px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: var(--color-bg-1);
+    transition: ease-in-out 0.3s;
+    padding: 15px;
+}
+
+.sidebar .active,
+.sidebar a:hover {
+    background-color: #565656;
+}
+
+.c-bg {
+
+
+    left: 55%;
+    bottom: 0;
+    transform: translateX(-50%);
+    position: relative;
+    background-color: var(--color-bg-1);
+    border-radius: 1rem;
+    box-shadow: 0px 4px 4px #d9d9d9;
+    width: 78%;
+    height: 78%;
+
+
+
+
+}
+
+.msg {
+
+    z-index: 0;
+    position: relative;
+    display: flex;
+    /*none quando existem produtos*/
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.msg span {
+    text-align: center;
+    width: 500px;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+#mensagem {
+    color: var(--color-bg-2);
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.products {
+    padding: 5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 24px;
+
+
+}
+
+.produto {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    width: 245px;
+    height: 317px;
+    background-color: var(--color-bg-1);
+    box-shadow: 0px 4px 4px #d9d9d9;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.produto .desc-icon {
+    display: flex;
+    flex-direction: row;
+}
+
+.produto .desc {
+    font-size: 12px;
+    padding: 10px 0px 0px 10px;
+}
+
+.produto .icons {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    left: 3rem;
+}
+
+.produto .icons #i {
+    width: 20px;
+    height: 20px;
+    transition: .2s ease;
+}
+
+.produto .desc-icon #i:hover {
+    transform: scale(1.2);
+}
+
+.produto p {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    max-width: 100px;
+    white-space: nowrap;
+    /* Prevents the text from wrapping to a new line */
+    overflow: hidden;
+    /* Hides the overflowing text */
+    text-overflow: ellipsis;
+    /* Displays an ellipsis (...) at the end */
+
+}
+
+.produto p:hover {
+    overflow: none;
+    text-overflow: none;
+}
+
+.produto strong {
+    color: var(--color-orange);
+
+}
+
+.produto img {
+    width: 245px;
+    height: 229px;
+}
+
+.icons button {
+    background: none;
+    border: none;
+}
