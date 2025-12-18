@@ -98,24 +98,14 @@ async function carregarMeusProdutos(page = 0) {
 
               </div>
 
-<<<<<<< HEAD:dashboard/back end/dashboard.js
            <div class="icons">
 
             <button type="button" class="icone-cate btn-editar">
               <img src="../img/editar.png" class="icon-img" />
             </button>
-=======
-                               <button id="editar" class="icone-cate">
-                               <img id="i" src="/img/editar.png" alt="">
-                               </button>
-
-                               <button id="deletar" class="icone-cate">
-                               <img id="i" src="/img/excluir.png" alt="">
-                               </button>
->>>>>>> 7f5cb40d34165dd9294afa0702e5f67531de6ca9:dashboard/produto/dashboard.js
-
-            <button type="button" class="icone-cate btn-deletar">
-              <img src="../img/excluir.png" class="icon-img" />
+                            
+            <button id="deletar" class="icone-cate">
+            <img id="i" src="/img/excluir.png" alt="">
             </button>
 
           </div>

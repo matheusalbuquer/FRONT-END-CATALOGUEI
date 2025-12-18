@@ -1,0 +1,14 @@
+.valor-bts-cate {
+    display: flex;
+    flex-direction: row;
+}
+
+.valor-bts-cate img {
+    width: 20px;
+    height: 20px;
+    transition: 1s ease;
+}
+
+.valor-bts-cate img:hover {
+    transform: scale(1.2);
+}

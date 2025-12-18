@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
 @import url("../cadastrar-produto/cad-produto.css");
-@import url("../cadastrar-categoria/cad-categoria.html");
+@import url("../cadastrar-categoria/cad-categoria.css");
 @import url("../categorias/categorias.css");
 
 :root {
@@ -206,7 +206,8 @@ header button:hover {
   display: flex;
   gap: 8px;
   align-items: center;
-  justify-content: flex-end; /* joga pra direita */
+  justify-content: flex-end;
+  /* joga pra direita */
 }
 
 .products {
@@ -246,12 +247,18 @@ header button:hover {
   display: flex;
   position: relative;
   flex-direction: row;
-  left: 3rem;
+  left: 2rem;
+  overflow: hidden;
 }
 
-.produto .icons i {
+.produto .icons img {
   width: 20px;
   height: 20px;
+  transition: 1s ease;
+}
+
+.produto .icons img:hover {
+  transform: scale(1.2);
 }
 
 .produto p {
