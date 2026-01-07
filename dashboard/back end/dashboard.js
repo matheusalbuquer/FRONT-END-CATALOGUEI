@@ -1,6 +1,7 @@
 const API_BASE = "http://localhost:8080";
 const PRODUTO_ENDPOINT = `${API_BASE}/produto`;
 const MEUS_ENDPOINT = `${API_BASE}/produto/meus`;
+const DELETAR_ENDPOINT = `${API_BASE}/produto/deletar`; // ajuste se seu endpoint for outro
 
 const form = document.getElementById("form-produto");
 const nomeInput = document.getElementById("nome");
@@ -33,7 +34,6 @@ function resolveImgSrc(p) {
 
   const str = String(raw).trim();
 
-  // se já for http/https ou data: usa direto
   if (
     str.startsWith("http://") ||
     str.startsWith("https://") ||
@@ -42,18 +42,48 @@ function resolveImgSrc(p) {
     return str;
   }
 
-  // se começar com /, prefixa com API_BASE
-  if (str.startsWith("/")) {
-    return `${API_BASE}${str}`;
-  }
+  if (str.startsWith("/")) return `${API_BASE}${str}`;
 
-  // qualquer outra coisa: assume relativo ao backend
   return `${API_BASE}/${str}`;
 }
 
-// =======================
-// CARREGAR MEUS PRODUTOS
-// =======================
+/* =========================
+   DELETAR PRODUTO
+   ========================= */
+async function deletarProduto(id) {
+  if (!id) return;
+
+  const ok = confirm("Tem certeza que deseja excluir este produto?");
+  if (!ok) return;
+
+  try {
+    const resp = await fetch(`${DELETAR_ENDPOINT}/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    const txt = await resp.text();
+    console.log("DELETE status:", resp.status, "resp:", txt);
+
+    if (!resp.ok) {
+      msgEl.textContent = "Erro ao excluir produto.";
+      msgEl.style.color = "red";
+      return;
+    }
+
+    msgEl.textContent = "Produto excluído com sucesso!";
+    msgEl.style.color = "green";
+    carregarMeusProdutos();
+  } catch (e) {
+    console.error(e);
+    msgEl.textContent = "Erro ao conectar com o servidor.";
+    msgEl.style.color = "red";
+  }
+}
+
+/* =========================
+   CARREGAR MEUS PRODUTOS
+   ========================= */
 async function carregarMeusProdutos(page = 0) {
   if (!container) return;
 
@@ -64,9 +94,7 @@ async function carregarMeusProdutos(page = 0) {
       `${MEUS_ENDPOINT}?page=${page}&size=10&sort=nome,asc`,
       {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       }
     );
 
@@ -77,9 +105,9 @@ async function carregarMeusProdutos(page = 0) {
     }
 
     const data = await resp.json();
-    console.log("Resposta /produto/meus:", data); // 👀 pra você ver o JSON
-    const itens = data.content || [];
+    console.log("Resposta /produto/meus:", data);
 
+    const itens = data.content || [];
     if (itens.length === 0) {
       container.innerHTML = "<p>Ainda não existem produtos cadastrados.</p>";
       return;
@@ -91,27 +119,23 @@ async function carregarMeusProdutos(page = 0) {
         <div class="produto" data-id="${p.id}">
           <img src="${resolveImgSrc(p)}" alt="${p.nome}"/>
           <div class="desc-icon">
-              <div class="desc">
-                  <h3>${p.nome}</h3>
-                  <p>${p.descricao || ""}</p>
-                  <strong>R$ ${Number(p.preco).toFixed(2)}</strong>
+            <div class="desc">
+              <h3>${p.nome}</h3>
+              <p>${p.descricao || ""}</p>
+              <strong>R$ ${Number(p.preco).toFixed(2)}</strong>
+            </div>
 
-              </div>
+            <div class="icons">
+              <!-- ✅ editar: SEM <a>, pega o id e navega com ?id= -->
+              <button type="button" class="icone-cate btn-editar" title="Editar">
+                <img src="../img/editar.png" class="icon-img" />
+              </button>
 
-           <div class="icons">
-
-            <button type="button" class="icone-cate btn-editar">
-            <a href="/editar-produto/editar-produto.html"><img src="../img/editar.png" class="icon-img" /></a>
-              
-            </button>
-                            
-            <button id="deletar" class="icone-cate">
-            <a href=""> <img id="i" src="/img/excluir.png" alt=""></a>
-           
-            </button>
-
-          </div>
-
+              <!-- ✅ deletar: classe correta -->
+              <button type="button" class="icone-cate btn-deletar" title="Excluir">
+                <img src="/img/excluir.png" class="icon-img" />
+              </button>
+            </div>
           </div>
         </div>
       `
@@ -123,23 +147,38 @@ async function carregarMeusProdutos(page = 0) {
   }
 }
 
+/* =========================
+   CLIQUES (EDITAR / EXCLUIR)
+   ========================= */
 container.addEventListener("click", (e) => {
+  const card = e.target.closest(".produto");
+  if (!card) return;
+
+  const id = card.dataset.id;
+
+  // ✅ editar
+  const btnEdit = e.target.closest(".btn-editar");
+  if (btnEdit) {
+    console.log("ID para editar:", id);
+    window.location.href = `/editar-produto/editar-produto.html?id=${id}`;
+    return;
+  }
+
+  // ✅ deletar
   const btnDel = e.target.closest(".btn-deletar");
-  if (!btnDel) return;
-
-  const card = btnDel.closest(".produto");
-  const id = card?.dataset?.id;
-
-  console.log("ID para excluir:", id); // 👈 teste
-  deletarProduto(id);
+  if (btnDel) {
+    console.log("ID para excluir:", id);
+    deletarProduto(id);
+    return;
+  }
 });
 
 // chama assim que a página abrir
 carregarMeusProdutos();
 
-// =======================
-// CADASTRAR PRODUTO
-// =======================
+/* =========================
+   CADASTRAR PRODUTO
+   ========================= */
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -163,9 +202,7 @@ form.addEventListener("submit", async (e) => {
   try {
     const resp = await fetch(PRODUTO_ENDPOINT, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${token}` },
       body: fd,
     });
 
@@ -181,11 +218,9 @@ form.addEventListener("submit", async (e) => {
     msgEl.textContent = "Produto cadastrado com sucesso!";
     msgEl.style.color = "green";
     form.reset();
-
-    // recarrega a lista após cadastrar
     carregarMeusProdutos();
   } catch (err) {
-    console.error("Erro de conexão:", err);
+    console.error(err);
     msgEl.textContent = "Erro ao conectar com o servidor.";
     msgEl.style.color = "red";
   }
